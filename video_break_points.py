@@ -74,14 +74,12 @@ class Video:
 		#Get silence and blank ranges to compare
 		silence = self.silence
 		blank = self.blank
-		#check = []
 		breakPoint = []
 		
 		bar = IncrementalBar('Gathering break points', max = len(silence))
 		#Loop through silence ranges
 		for silStart, silStop in silence:
 			bar.next()
-			#sil = range(silStart, silStop)
 			#Loop through blank ranges
 			for blStart, blStop in blank:
 				start = None
@@ -99,42 +97,7 @@ class Video:
 				#Output as range
 				if start != None and stop != None:
 					breakPoint.append([start, stop])
-				
-				# bl = range(blStart, blStop)
-				# #If silence starts in blank
-				# if silStart in bl:
-					# check.append(silStart)
-				# #If silence ends in blank
-				# if silStop in bl:
-					# check.append(silStop)
-				# #If blank starts in silence
-				# if blStart in sil:
-					# check.append(blStart)
-				# #If blank ends in silence
-				# if blStop in sil:
-					# check.append(blStop)
 		bar.finish()
-		
-		# #Check if list is already sorted
-		# if all(check[i] <= check[i+1] for i in range(len(check)-1)):
-			# breakPoint = check
-		# else:
-			# bar2 = IncrementalBar('Sorting break points', max = len(check))
-			# #Sort break points
-			# breakPoint = []
-			# length = len(check)
-			# #Loop until popped
-			# while length > len(breakPoint):
-				# bar2.next()
-				# indexLow = -1
-				# #Loop once, find lowest
-				# for i, frame in enumerate(check):
-					# #If lowest grab index
-					# if frame < check[indexLow]:
-						# indexLow = i
-				# #Add lowest to break point list and pop from check, keep looping
-				# breakPoint.append(check.pop(indexLow))
-			# bar2.finish()
 		return breakPoint
 
 def findBreakPoints(location):
